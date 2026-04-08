@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Services | Leocadia Mathias</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+/* ---------- GENERAL ---------- */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Poppins',sans-serif; background:#020617; color:white; }
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    backdrop-filter:blur(12px);
+    background:rgba(2,6,23,0.7);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    z-index:1000;
+}
+
+.logo{
+    color:#38bdf8;
+    font-weight:600;
+    font-size:1.4rem;
+}
+
+/* ---------- NAV LINKS ---------- */
+.nav-links{
+    display:flex;
+    gap:15px;
+    list-style:none;
+}
+
+.nav-links a{
+    padding:8px 18px;
+    border-radius:30px;
+    border:1px solid transparent;
+    font-size:0.9rem;
+    color:#cbd5e1;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+    border:1px solid rgba(56,189,248,0.5);
+    background:rgba(56,189,248,0.1);
+    box-shadow:0 0 10px rgba(56,189,248,0.3);
+    transform:translateY(-2px);
+}
+
+.nav-links a.active{
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    color:white;
+    box-shadow:0 0 15px rgba(56,189,248,0.5);
+}
+
+/* ---------- MENU BUTTON (FIXED) ---------- */
+.menu-btn{
+    position:fixed;
+    top:18px;
+    right:20px;
+    width:30px;
+    height:22px;
+    display:none;
+    flex-direction:column;
+    justify-content:space-between;
+    cursor:pointer;
+    z-index:2000;
+}
+
+.menu-btn span{
+    display:block;
+    height:3px;
+    width:100%;
+    background:white;
+    border-radius:5px;
+    transition:0.4s;
+}
+/* ANIMATION TO X */
+.menu-btn.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+
+.menu-btn.active span:nth-child(2){
+    opacity:0;
+}
+
+.menu-btn.active span:nth-child(3){
+    transform:rotate(-45deg) translate(6px,-6px);
+}
+
+/* ---------- OVERLAY ---------- */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(5px);
+    top:0;
+    left:0;
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s;
+    z-index:1400;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* ---------- SIDEBAR UPGRADE ---------- */
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:260px;
+    height:100%;
+    background:rgba(2,6,23,0.95);
+    backdrop-filter:blur(15px);
+    padding:100px 30px;
+    transition:0.4s ease;
+    z-index:1500;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar.active{
+    right:0;
+}
+
+/* SIDEBAR LINKS */
+.sidebar a{
+    display:block;
+    margin:20px 0;
+    color:#cbd5e1;
+    text-decoration:none;
+    font-size:1.2rem;
+    transition:0.3s;
+}
+
+.sidebar a:hover{
+    color:#38bdf8;
+    transform:translateX(5px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:flex;
+    }
+}
+
+
+/* ---------- HEADER ---------- */
+.page-header{
+    padding-top:120px;
+    text-align:center;
+    padding-bottom:50px;
+}
+.page-header h1{ font-size:2.5rem; color:#38bdf8; margin-bottom:10px; }
+.page-header p{ color:#94a3b8; }
+
+/* ---------- SERVICES GRID ---------- */
+.services-page{
+    display:grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap:25px;
+    max-width:1000px;
+    margin:50px auto;
+    padding:0 20px;
+}
+
+.service-box{
+    background: rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.1);
+    backdrop-filter:blur(10px);
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
+    transition:0.4s;
+    position:relative;
+}
+
+.service-box:hover{
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(56,189,248,0.3);
+}
+
+.service-icon{
+    width:60px;
+    height:60px;
+    background: linear-gradient(135deg,#38bdf8,#6366f1);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:1.5rem;
+    color:white;
+    margin:0 auto 20px auto;
+    transition:0.3s;
+}
+
+.service-box:hover .service-icon{
+    transform: scale(1.2);
+}
+
+/* ---------- CTA ---------- */
+.cta{
+    text-align:center;
+    padding:60px 20px;
+    background:#0b1220;
+}
+.cta .btn {
+    padding: 7px 12px;      /* medium size */
+    font-size: 1rem;         /* readable but not too big */
+    border-radius: 30px;     
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(135deg, #38bdf8, #6366f1);
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.cta .btn:hover {
+    transform: scale(1.05);   /* subtle hover effect */
+    box-shadow: 0 5px 15px rgba(56,189,248,0.5);
+}
+
+/* ---------- FOOTER ---------- */
+footer{
+    text-align:center;
+    padding:20px;
+    background:#020617;
+    color:#94a3b8;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Logo</div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <a href="contact.html">Contacts</a>
+    </ul>
+</nav>
+
+<!-- HAMBURGER BUTTON -->
+<div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contacts</a>
+</div>
+
+<script>
+    const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+// OPEN / CLOSE MENU
+menuBtn.onclick = () => {
+    menuBtn.classList.toggle("active");
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+};
+
+// CLOSE WHEN CLICK OVERLAY
+overlay.onclick = () => {
+    menuBtn.classList.remove("active");
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+};
+</script>
+
+<!-- HEADER -->
+<section class="page-header">
+    <h1>Legal Services</h1>
+    <p>Professional Legal Support You Can Trust</p>
+</section>
+
+<!-- SERVICES GRID -->
+<section class="services-page">
+    <div class="service-box">
+        <div class="service-icon">⚖️</div>
+        <h2>Legal Consultation</h2>
+        <p>Providing clear and reliable legal advice to help clients understand their rights, obligations, and best course of action.</p>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">🛡️</div>
+        <h2>Client Representation</h2>
+        <p>Representing clients professionally while protecting their interests in legal matters with integrity and dedication.</p>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">📝</div>
+        <h2>Document Drafting</h2>
+        <p>Preparation of legal documents including agreements, contracts, and formal letters with accuracy and professionalism.</p>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">🔍</div>
+        <h2>Legal Research</h2>
+        <p>Conducting detailed legal research to support cases and provide well-informed legal solutions.</p>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">💼</div>
+        <h2>Client Support Services</h2>
+        <p>Assisting clients with inquiries, guidance, and maintaining strong professional relationships.</p>
+    </div>
+    <div class="service-box">
+        <div class="service-icon">📄</div>
+        <h2>Contract Review</h2>
+        <p>Reviewing contracts to ensure fairness, legality, and protection of client interests.</p>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+    <h2>Looking for Legal Help?</h2>
+    <a href="contact.html" class="btn">Contact Now</a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Leocadia Mathias | All Rights Reserved</p>
+</footer>
+
+<script>
+
+/* MOBILE MENU TOGGLE */
+const menuBtn = document.getElementById('menu-btn');
+const navLinks = document.getElementById('nav-links');
+menuBtn.addEventListener('click', () => {
+    navLinks.classList.toggle('show');
+});
+
+</script>
+
+</body>
+</html>

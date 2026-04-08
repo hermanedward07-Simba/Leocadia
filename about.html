@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About | Leocadia Mathias</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+/* ---------- GENERAL ---------- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #020617;
+    color: white;
+}
+
+/* ---------- NAVBAR ---------- */
+.navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:70px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    backdrop-filter:blur(12px);
+    background:rgba(2,6,23,0.7);
+    border-bottom:1px solid rgba(255,255,255,0.1);
+    z-index:1000;
+}
+
+.logo{
+    color:#38bdf8;
+    font-weight:600;
+    font-size:1.4rem;
+}
+
+/* ---------- NAV LINKS ---------- */
+.nav-links{
+    display:flex;
+    gap:15px;
+    list-style:none;
+}
+
+.nav-links a{
+    padding:8px 18px;
+    border-radius:30px;
+    border:1px solid transparent;
+    font-size:0.9rem;
+    color:#cbd5e1;
+    text-decoration:none;
+    transition:0.3s;
+}
+
+.nav-links a:hover{
+    color:white;
+    border:1px solid rgba(56,189,248,0.5);
+    background:rgba(56,189,248,0.1);
+    box-shadow:0 0 10px rgba(56,189,248,0.3);
+    transform:translateY(-2px);
+}
+
+.nav-links a.active{
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    color:white;
+    box-shadow:0 0 15px rgba(56,189,248,0.5);
+}
+
+/* ---------- MENU BUTTON (FIXED) ---------- */
+.menu-btn{
+    position:fixed;
+    top:18px;
+    right:20px;
+    width:30px;
+    height:22px;
+    display:none;
+    flex-direction:column;
+    justify-content:space-between;
+    cursor:pointer;
+    z-index:2000;
+}
+
+.menu-btn span{
+    display:block;
+    height:3px;
+    width:100%;
+    background:white;
+    border-radius:5px;
+    transition:0.4s;
+}
+/* ANIMATION TO X */
+.menu-btn.active span:nth-child(1){
+    transform:rotate(45deg) translate(5px,5px);
+}
+
+.menu-btn.active span:nth-child(2){
+    opacity:0;
+}
+
+.menu-btn.active span:nth-child(3){
+    transform:rotate(-45deg) translate(6px,-6px);
+}
+
+/* ---------- OVERLAY ---------- */
+.overlay{
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    backdrop-filter:blur(5px);
+    top:0;
+    left:0;
+    opacity:0;
+    visibility:hidden;
+    transition:0.3s;
+    z-index:1400;
+}
+
+.overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+
+/* ---------- SIDEBAR UPGRADE ---------- */
+.sidebar{
+    position:fixed;
+    top:0;
+    right:-100%;
+    width:260px;
+    height:100%;
+    background:rgba(2,6,23,0.95);
+    backdrop-filter:blur(15px);
+    padding:100px 30px;
+    transition:0.4s ease;
+    z-index:1500;
+    box-shadow:-5px 0 20px rgba(0,0,0,0.5);
+}
+
+.sidebar.active{
+    right:0;
+}
+
+/* SIDEBAR LINKS */
+.sidebar a{
+    display:block;
+    margin:20px 0;
+    color:#cbd5e1;
+    text-decoration:none;
+    font-size:1.2rem;
+    transition:0.3s;
+}
+
+.sidebar a:hover{
+    color:#38bdf8;
+    transform:translateX(5px);
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+
+    .nav-links{
+        display:none;
+    }
+
+    .menu-btn{
+        display:flex;
+    }
+}
+
+/* ---------- HERO ---------- */
+.hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:3rem;
+}
+
+.typing{
+    color:#38bdf8;
+}
+
+/* ---------- BUTTON ---------- */
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:14px 30px;
+    background:linear-gradient(135deg,#38bdf8,#6366f1);
+    border-radius:30px;
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+.btn:hover{
+    transform:scale(1.05);
+}
+/* ---------- HEADER ---------- */
+.header {
+    padding-top: 120px;
+    text-align: center;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+}
+
+.header p {
+    color: #94a3b8;
+}
+
+/* ---------- SECTION ---------- */
+.section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 20px;
+}
+
+/* ---------- GLASS CARD ---------- */
+.card {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    backdrop-filter: blur(10px);
+    padding: 30px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 0.6s;
+}
+
+.card.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.card h2 {
+    margin-bottom: 10px;
+    color: #38bdf8;
+}
+
+/* ---------- PROFILE CARD HORIZONTAL ---------- */
+.profile-card {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.profile-text {
+    flex: 1;
+}
+
+.profile-text h2 {
+    margin-bottom: 15px;
+    color: #38bdf8;
+}
+
+.profile-text p {
+    line-height: 1.6;
+    color: #cbd5e1;
+}
+
+.profile-image {
+    flex-shrink: 0;
+}
+
+.profile-image img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #38bdf8;
+    box-shadow: 0 0 20px rgba(56,189,248,0.5);
+    transition: 0.4s;
+}
+
+.profile-image img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 30px rgba(56,189,248,0.7);
+}
+
+/* ---------- TIMELINE ---------- */
+.timeline {
+    border-left: 2px solid #38bdf8;
+    padding-left: 20px;
+}
+
+.timeline-item {
+    margin-bottom: 20px;
+}
+
+/* ---------- SKILLS ---------- */
+.skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.skills span {
+    background: rgba(56,189,248,0.2);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+}
+
+/* ---------- FOOTER ---------- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background: #020617;
+    color: #94a3b8;
+}
+
+/* ---------- RESPONSIVE ---------- */
+@media(max-width:768px){
+    .profile-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    .profile-image img {
+        width: 120px;
+        height: 120px;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Logo</div>
+
+    <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <a href="contact.html">Contacts</a>
+    </ul>
+</nav>
+
+<!-- HAMBURGER BUTTON -->
+<div class="menu-btn" id="menuBtn">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+    <a href="services.html">Services</a>
+    <a href="contact.html">Contacts</a>
+</div>
+
+<!-- HEADER -->
+<section class="header">
+    <h1>About Me</h1>
+    <p>Professional Background & Personal Profile</p>
+</section>
+
+<!-- PROFILE CARD -->
+<div class="card profile-card">
+    <div class="profile-text">
+        <h2>Profile</h2>
+        <p>
+            I am <strong>Leocadia Christopher Mathias</strong>, a Bachelor of Laws (LL.B) graduate
+            passionate about delivering professional, ethical, and client-focused legal services.
+        </p>
+        <p>
+            I possess strong communication skills, adaptability, and a deep commitment to
+            professionalism in all legal matters.
+        </p>
+    </div>
+    <div class="profile-image">
+        <img src="Leo.jpeg" alt="Leocadia Mathias">
+    </div>
+</div>
+
+<!-- EDUCATION -->
+<div class="card">
+    <h2>Education</h2>
+    <div class="timeline">
+        <div class="timeline-item">LL.B – Moshi Cooperative University</div>
+        <div class="timeline-item">Advanced Secondary – Florian Secondary</div>
+        <div class="timeline-item">Secondary – Kichanga Secondary</div>
+        <div class="timeline-item">Primary – Moringe Primary</div>
+    </div>
+</div>
+
+<!-- EXPERIENCE -->
+<div class="card">
+    <h2>Experience</h2>
+    <p><strong>Customer Service – Canada Investment</strong></p>
+    <ul>
+        <li>Handled transactions and payments</li>
+        <li>Resolved customer issues</li>
+        <li>Maintained professional environment</li>
+    </ul>
+</div>
+
+<!-- SKILLS -->
+<div class="card">
+    <h2>Skills</h2>
+    <div class="skills">
+        <span>Communication</span>
+        <span>Client Management</span>
+        <span>Time Management</span>
+        <span>Organization</span>
+        <span>Adaptability</span>
+    </div>
+</div>
+
+<!-- LANGUAGES & INTERESTS -->
+<div class="card">
+    <h2>Languages & Interests</h2>
+    <p>English (Proficient) | Swahili (Fluent)</p>
+    <p>Reading | Gospel Music | Writing</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 Leocadia Mathias</p>
+</footer>
+
+<!-- SCROLL ANIMATION -->
+<script>
+const cards = document.querySelectorAll('.card');
+window.addEventListener('scroll', () => {
+    cards.forEach(card => {
+        let position = card.getBoundingClientRect().top;
+        let screen = window.innerHeight;
+
+        if(position < screen - 100){
+            card.classList.add('show');
+        }
+    });
+});
+
+
+const menuBtn = document.getElementById("menuBtn");
+const sidebar = document.getElementById("sidebar");
+const overlay = document.getElementById("overlay");
+
+// OPEN / CLOSE MENU
+menuBtn.onclick = () => {
+    menuBtn.classList.toggle("active");
+    sidebar.classList.toggle("active");
+    overlay.classList.toggle("active");
+};
+
+// CLOSE WHEN CLICK OVERLAY
+overlay.onclick = () => {
+    menuBtn.classList.remove("active");
+    sidebar.classList.remove("active");
+    overlay.classList.remove("active");
+};
+</script>
+
+</body>
+</html>
